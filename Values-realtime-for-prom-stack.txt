@@ -646,7 +646,7 @@ alertmanager:
             - key: role
               operator: In
               values:
-              - PROD-Monitoring-NG
+              - dev-db
     ## If specified, the pod's tolerations.
     ## ref: https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
     ##
@@ -1889,7 +1889,7 @@ prometheusOperator:
             - key: role
               operator: In
               values:
-              - PROD-Monitoring-NG
+              - dev-db
       tolerations: []
 
       ## SecurityContext holds pod-level security attributes and common container settings.
@@ -2123,7 +2123,7 @@ prometheusOperator:
             - key: role
               operator: In
               values:
-              - PROD-Monitoring-NG
+              - dev-db
   dnsConfig: {}
     # nameservers:
     #   - 1.2.3.4
@@ -2940,7 +2940,7 @@ prometheus:
             - key: role
               operator: In
               values:
-              - PROD-Monitoring-NG
+              - dev-db
     ## The remote_read spec configuration for Prometheus.
     ## ref: https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/api.md#remotereadspec
     remoteRead: []
@@ -3707,7 +3707,7 @@ thanosRuler:
             - key: role
               operator: In
               values:
-              - PROD-Monitoring-NG
+              - dev-db
     ## If specified, the pod's tolerations.
     ## ref: https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
     ##
