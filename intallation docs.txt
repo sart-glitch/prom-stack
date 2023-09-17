@@ -1,0 +1,1 @@
+https://artifacthub.io/packages/helm/prometheus-community/kube-prometheus-stack/45.31.1?ref=blog.bierochs.org
