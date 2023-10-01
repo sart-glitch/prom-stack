@@ -1,0 +1,42 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/target-type: ip
+    alb.ingress.kubernetes.io/group.name: monitoring
+  name: prod-monitoring
+  namespace: monitoring
+spec:
+  ingressClassName: alb
+  rules:
+  - host: grafana.sarthusofts.com
+    http:
+      paths:
+      - backend:
+          service:
+            name: prom-stack-grafana
+            port:
+              number: 80
+        path: /*
+        pathType: ImplementationSpecific
+  - host: prometheus.sarthusofts.com
+    http:
+      paths:
+      - backend:
+          service:
+            name: prom-stack-kube-prometheus-prometheus
+            port:
+              number: 9090
+        path: /*
+        pathType: ImplementationSpecific
+  - host: alertmanager.sarthusofts.com
+    http:
+      paths:
+      - backend:
+          service:
+            name: prom-stack-kube-prometheus-alertmanager
+            port:
+              number: 9093
+        path: /*
+        pathType: ImplementationSpecific
