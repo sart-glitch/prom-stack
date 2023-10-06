@@ -1,0 +1,52 @@
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: "2023-10-03T07:46:43Z"
+  labels:
+    app.kubernetes.io/instance: aws-load-balancer-controller
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: aws-load-balancer-controller
+    app.kubernetes.io/version: v2.5.2
+    helm.sh/chart: aws-load-balancer-controller-1.5.3
+  name: aws-load-balancer-controller-metrics-server
+  namespace: kube-system
+  resourceVersion: "35874670"
+  uid: e850f2eb-90c4-47f4-ba4e-2e1c8739e6d6
+spec:
+  clusterIP: 10.100.123.8
+  clusterIPs:
+  - 10.100.123.8
+  internalTrafficPolicy: Cluster
+  ipFamilies:
+  - IPv4
+  ipFamilyPolicy: SingleStack
+  ports:
+  - name: metrics-server
+    port: 8080
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app.kubernetes.io/instance: aws-load-balancer-controller
+    app.kubernetes.io/name: aws-load-balancer-controller
+  sessionAffinity: None
+  type: ClusterIP
+status:
+  loadBalancer: {}
+
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  labels:
+    #app.kubernetes.io/component: controller
+    app.kubernetes.io/instance: aws-load-balancer-controller
+  name: controller-metrics-monitor
+  namespace: kube-system
+spec:
+  endpoints:
+    - path: /metrics
+      targetPort: 8080
+  selector:
+    matchLabels:
+      #app.kubernetes.io/component: controller
+      app.kubernetes.io/instance: aws-load-balancer-controller
